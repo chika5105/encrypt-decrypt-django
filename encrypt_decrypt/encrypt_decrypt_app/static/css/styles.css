@@ -1,0 +1,76 @@
+/*!
+ * Start Bootstrap - Full Width Pics (https://startbootstrap.com/templates/full-width-pics)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-full-width-pics/blob/master/LICENSE)
+ */
+
+ @media (prefers-reduced-motion: no-preference) {
+  #nav_bar_logo {
+    animation: nav_bar_logo-spin infinite 8s linear;
+  }
+}
+
+@keyframes nav_bar_logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+body {
+  padding-top: 70px;
+  background-color: white; /* use  #282c34 later */
+ 
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+p {
+  color: black; /* use white later */
+  
+  text-align: center;
+  padding: 50 px 0;
+  
+}
+#homepage_logo {
+  height: 55vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #homepage_logo {
+    animation: homepage_logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes homepage_logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1rem;
+  padding-top: 20px;
+  display: block;
+
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+<h1>SIGN UP</h1>
+    <form action = "{% url 'signup' %}" method = "post">
+        {% csrf_token %}
+        <table class= "form-group">
+            {{ form.as_table }}
+        </table>
+        <input class = "btn btn-primary" type="submit" value = "Submit">
+    </form>

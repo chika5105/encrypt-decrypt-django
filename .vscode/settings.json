@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/Users/jinanwachikafavour/.virtualenvs/encrypt_decrypt/bin/python",
+    "python.autoComplete.extraPaths": ["/Users/jinanwachikafavour/Documents/GitHub/encrypt-decrypt-django/encrypt_decrypt/encrypt_decrypt_app"]
+}

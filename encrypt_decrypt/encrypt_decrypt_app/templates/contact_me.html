@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+{% block nav_contact %}
+    class = "nav-item active"
+{% endblock %}
+{% block content %}
+    <h1>CONTACT ME</h1>
+    <form action = "{% url 'contact-me' %}" method = "post">
+        {% csrf_token %}
+        <table class= "form-group">
+            {{ form.as_table }}
+        </table>
+        <input class = "btn btn-primary" type="submit" value = "Submit">
+    </form>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base_generic.html' %}
+{% block nav_user %}
+    class = "nav-item active"
+{% endblock %}
+{% block content %}
+    <h1>User: {{ user_detail.username }}</h1>
+    <p>Description: {{ user_detail.messages }}</p>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% block title %}<title>Chika's Cipher</title>{% endblock %}
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+    
+        <link href=" {% static 'css/styles.css' %}" rel="stylesheet">
+
+    </head>
+
+    <body>
+    {% block navbar %}
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Chika's Cipher</a>
+                <img class= "img-responsive" id = "nav_bar_logo" alt = "Logo" src = "{% static 'images/nav_bar_logo.png' %}">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li {% block nav_home %}{% endblock %}>
+                <a class="nav-link" href="{% url 'index' %}">Home
+                </a>
+                </li>
+                <li {% block nav_about %}{% endblock %}>
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li {% block nav_encrypt %}{% endblock %}>
+                <a class = "nav-link" href = "{% url 'ciphers' %}">Encrypt/Decrypt</a>
+                </li>
+                <li {% block nav_guess %}{% endblock %}>
+                <a class = "nav-link" href = '#'> Guess the Word! </a>
+                </li>
+                <li {% block nav_contact %}{% endblock %}>
+                <a class="nav-link" href="{% url 'contact-me' %}">Contact</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li {% block nav_user %}{% endblock %}>
+                        <a class ="nav-link" href = "{% url 'user-detail' user.pk %}">User: {{ user.get_username }}</a>
+                    </li>
+                    <li><a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+                {% else %}
+                    <li><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+                {% endif %} 
+            </ul>
+            </div>
+        </div>
+        </nav>
+    {% endblock %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Chika Jinanwa 2020</p>
+            {% block footer %}
+            {% endblock %}
+        </div>
+        <!-- /.container -->
+        </footer>
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    </body>
+
+    </html>

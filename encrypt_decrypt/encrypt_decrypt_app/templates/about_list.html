@@ -1,0 +1,18 @@
+{% extends 'base_generic.html' %}
+{% block nav_about %}
+    class = "nav-item active"
+{% endblock %}
+{% block content %}
+    <h1>Encryption List</h1>
+        {% if  encryption_list %}
+            <ul>
+                {% for encryption in encryption_list %}
+                    <li>
+                        <a href= "{{ encryption.get_absolute_url }}">{{ encryption.encryption_technique }}</a>
+                    </li>
+                {% endfor %}
+        {% else %}
+            <p> There are no descriptions for the encryptions. Please check back later or file a bug report in the contact form <a href="{% url 'contact-me' %}">here</a></p>
+            </ul>
+        {% endif %}
+{% endblock %}

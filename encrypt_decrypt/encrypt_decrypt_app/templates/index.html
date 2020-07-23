@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block nav_home %}
+    class = "nav-item active"
+{% endblock %}
+{% block content %}
+    <!-- Header - set the background image for the header in the line below -->
+    <header class="py-5 bg-image-full" style="background-color: #282c34">
+    </header>
+
+    
+    <img id = 'homepage_logo' class = "img-fluid d-block mx-auto" src = "{% static 'images/encryption_asym.png' %} "alt=""/>
+    <p class="lead"><a href = "{% url 'ciphers' %}">Launch Encryption!</a></p>
+    <p class = "lead"><a href="{% url 'about' %}">See detailed descriptions of the encryption techniques</a></p>
+{% endblock %}
+ 
+{% block footer %}
+    {{ block.super }}
+      <p class="m-0 text-center text-white" style="font-size:small"> You have visited this page {%if num_visits == 1 %} once {% else %} {{num_visits}} times {%endif%}. </p>
+{% endblock %}
