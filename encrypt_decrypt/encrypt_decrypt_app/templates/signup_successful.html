@@ -1,1 +1,13 @@
-<p>You have successful signed up! Login here at <a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
+{% extends "base_generic.html" %}
+{% block nav_user %}
+    class = "nav-item active"
+{% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
+{% block content %}
+<div style = "padding-top: 65px;">
+    <div class="alert alert-success" role = "alert"> You have successful signed up! Login <a href="{% url 'login'%}">here</a></div>
+</div>
+    
+{% endblock %}

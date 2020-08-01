@@ -1,0 +1,97 @@
+{% extends 'base_generic.html' %}
+{% block nav_guess %}
+    class = "nav-item dropdown active"
+{% endblock %}
+{% block content %}
+<div style= "padding-top: 70px;">
+    <h2>
+        Hello there, Welcome to the Cipher Games! 🙂
+    </h2>
+
+<h4>
+    Recommendations
+</h4>
+
+<ul class = "lead">
+    <li>
+        You are strongly advised to have the the <a href = "{% url 'ciphers' %}">Encryption Engine</a> open in another tab to aid you with decoding.
+    </li>
+    <li>
+        It is also recommended that you read about the encryptions <a href = "{% url 'about' %}">here</a> to gain a better understanding of how these work, their characteristics, and weaknesses as the knowledge will come in handy while decrypting. 
+    </li>
+</ul>
+ 
+<h4>
+    General Information 
+</h4>
+<ul class = "lead">
+    <li>
+        The questions are grouped according to difficulty-ranging from Easy to Medium to Hard and finally Impossible.
+    </li>
+    <li>
+        Each question has hints and keys used for the encryption (if any) attached to it. The name of each question is also a hint to the correct answer. 
+    </li>
+    <li>
+        All questions except the easy ones will list the encryptions used to allow the player to focus on these encryptions. Easy questions use a single cipher technique, so it should be pretty straightforward to decode those. 
+    </li>
+    <li>
+        Easy and Medium questions feature one-worded answers, some of which include the names of famous people. 
+    </li>
+    <li>
+        Hard questions feature two-worded answers, which include the names of famous people and organizations. They are typically passed through 5 encryption stages, so brace up!💪🏾
+    </li>
+    <li>
+        Impossible questions are genuinely unlikely to be decoded🥴, or at least they were designed that way. They are typically passed through 3-5 encryption stages and feature complete sentences. These sentences are quotes from famous people whose names are given as hints.
+    </li>
+</ul>
+
+
+
+
+
+<h4>
+    Scoring
+</h4>
+<ul class = "lead">
+    <li>
+        Easy questions are each worth 5 points, Medium 10, Hard 15, and Impossible 20. 
+    </li>
+    <li>
+        You can attempt questions as many times as you want and will only be awarded points if you have not seen the answer or previously solved the question. So be careful with the “See Ans” button. If you press this button by mistake, simply press the button again to uncheck before submitting.
+    </li>
+    <li>
+        Don't worry about proper capitalization as the Engine is case insensitive but please leave a space between words for multiworded answers. Without these spaces, your correct answers <strong>WILL NOT</strong> be validated. 
+    </li>
+
+</ul>
+
+<h4>
+    Titles
+</h4>
+<ul class = "lead">
+    <li>
+        There are 4 titles available: Rookie Analyst, Analyst, Junior Cryptographer, Senior Cryptographer, Cipher Lord in increasing order of prominence.
+    </li>
+    <li>
+        You start out as a Rookie Analyst. You move from Rookie Analyst to Analyst when you earn 20 points, Analyst to Junior Cryptographer when you earn 40 points, Junior Cryptographer to Senior Cryptographer when you earn 90 points and Senior Cryptographer to Cipher Lord when you earn 140 points.
+    </li>
+    <li>
+        The top 10 players, their usernames and titles will be available on the <a href="{% url 'leaderboard' %}">leaderboard</a>. 
+    </li>
+
+</ul>
+
+
+
+   
+<p class= "lead">
+    Can you become a Cipher Lord?🤯 Best of luck and May the <a href = "{% url 'cipher-game' %} ">Cipher Games begin!</a> 👊🏾
+</p>
+
+
+</div>
+{% endblock %}
+
+{% block AddFooter %}
+
+{% endblock %}

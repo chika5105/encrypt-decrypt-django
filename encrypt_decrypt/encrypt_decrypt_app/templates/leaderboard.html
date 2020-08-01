@@ -1,0 +1,46 @@
+{% extends 'base_generic.html' %}
+{% block nav_guess %}
+    class = "nav-item dropdown active"
+{% endblock %}
+{% block content %}
+<div style= "padding-top: 100px;">
+    {% if query_set %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">UserName</th>
+                <th scope="col">Score</th>
+                <th scope="col">Title</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for query in query_set %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ query.username }}</td>
+                    <td>{{ query.score }}</td>
+                    <td>{{ query.rank }}</td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+   
+{% else %}
+<div class="alert alert-warning" role = "alert">
+    <p>Ouch! It appears there are no entries available to be displayed. Play the <a href="{% url 'cipher-game' %} ">Game</a>, get points and be the first on the leaderboard!</p>
+</ul>
+</div>
+
+{% endif %}
+
+</div>
+   
+
+
+{% endblock %}
+{% block AddFooter %}
+
+{% endblock %}

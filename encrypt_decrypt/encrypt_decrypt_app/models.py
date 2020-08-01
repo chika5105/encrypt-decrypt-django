@@ -43,6 +43,7 @@ class Contact(models.Model):
     email = models.EmailField(max_length=254)
     subject = models.CharField(max_length = 100)
     message = models.TextField()
+    image = models.ImageField(null=True, blank = True, upload_to= 'media')
     def __str__(self):
         return f'{self.name}, {self.subject}'
 
@@ -59,6 +60,17 @@ class User(AbstractUser):
          MORSE_CODE = 'MORSE CODE', _('Morse Code')
          NATO_CODE = 'NATO CODE', _('Nato Code')
          REVERSE_CIPHER = 'REVERSE CIPHER', _('Reverse Cipher')
+    class Rank(models.TextChoices):
+        CIPHER_LORD = 'Cipher Lord', _('Cipher Lord')
+        SENIOR_CRYPTOGRAPHER = 'Senior Cryptographer', _('Senior Cryptographer')
+        JUNIOR_CRYPTOGRAPHER = 'Junior Cryptographer', _('Junior Cryptographer')
+        ANALYST = 'Analyst', _('Analyst')
+        ROOKIE_ANALYST = 'Rookie Analyst', _('Rookie Analyst') 
+    rank = models.CharField(max_length = 150,
+    choices = Rank.choices,
+    null = True,
+    blank = True,
+    default = Rank.ROOKIE_ANALYST)
     favorite_encryption = models.CharField( max_length = 150,
         choices = FavoriteEncryption.choices, 
         null = True,
@@ -67,11 +79,55 @@ class User(AbstractUser):
     messages = models.TextField(null = True, blank = True)
     def __str__(self):
         "String for representing the Model object"
-        if self.first_name and self.last_name:
+        """if self.first_name and self.last_name:
             return f'{self.first_name}, {self.last_name}'
         else:
             return self.username
+        """
+        return self.username
     
     def get_absolute_url(self):
         "Returns url to access encryption scheme"
         return reverse('user-detail', args = [str(self.id)])
+#TODO set messages as a separate model and foregin key to user
+
+
+class CipherGame(models.Model):
+    Easy = 'Easy'
+    Medium = 'Medium'
+    Hard = 'Hard'
+    Impossible = 'Impossible'
+    DIFFICULTY_LEVEL = [
+        (Easy, 'Easy'),
+        (Medium, 'Medium'),
+        (Hard, 'Hard'),
+        (Impossible, 'Impossible')
+    ]
+    difficulty = models.CharField(max_length = 30, 
+    choices = DIFFICULTY_LEVEL,
+    default = Easy,
+    verbose_name = "Difficulty")
+    name = models.CharField(max_length = 600, null = False, blank = False)
+    cipher_text = models.TextField(null= False, blank = False)
+    keys = models.TextField(null = True, blank = False)
+    hint = models.TextField(null=True, blank = True)
+    plain_text= models.TextField(null = False, blank = False)
+    value = models.IntegerField()
+    encryption_sequence = models.TextField(null=False, blank = False)
+    encryptions_used = models.TextField(null = False, blank = False)
+    solved = models.TextField(null = True, blank = True, default = 'None')
+
+    def get_absolute_url(self):
+        return reverse('cipher-game-detail', args = [str(self.id)])
+
+    def __str__(self):
+        return self.name
+
+class Completed(models.Model):
+    question_id = models.CharField(max_length = 600, null = True, blank = True)
+    user_id = models.CharField(max_length= 600, null = True, blank = True)
+    question_name = models.CharField(max_length = 1000, null = True, blank = True)
+    user_name = models.CharField(max_length = 1000, null = True, blank = True)
+
+
+    

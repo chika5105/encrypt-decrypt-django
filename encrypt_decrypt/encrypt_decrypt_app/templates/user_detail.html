@@ -2,7 +2,62 @@
 {% block nav_user %}
     class = "nav-item active"
 {% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
 {% block content %}
-    <h1>User: {{ user_detail.username }}</h1>
-    <p>Description: {{ user_detail.messages }}</p>
+<div style = "padding-top: 70px;">
+    <h2>My Account Details</h1>
+        <dl class="row">
+            <p class= "lead">
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">{{ user.first_name }} {{ user.last_name }}</dd>
+                <dt class="col-sm-3">Username</dt>
+                <dd class="col-sm-9">{{ user.username }}</dd>
+                <dt class="col-sm-3">Email</dt>
+                {% if user.email %}
+                <dd class="col-sm-9">{{ user.email }}</dd>
+                {% else %}
+                <dd class="col-sm-9">You have not registered your email address with this website. Please do so <a href = "{% url 'user_update' user.pk %}">here</a> </dd>
+                {% endif %}
+                <dt class="col-sm-3">Score</dt>
+                <dd class="col-sm-9">{{ user.score }}</dd>
+                <dt class="col-sm-3">Title</dt>
+                <dd class="col-sm-9">{{ user.rank }}</dd>
+                <dt class="col-sm-3">Favorite Encryption</dt>
+                <dd class="col-sm-9">{{ user.favorite_encryption }}</dd>
+            
+            </p>
+            
+          
+          
+          
+
+          
+          
+          </dl>
+    <p class = "lead text-left"> <a href = "{% url 'user_update' user.pk %}">Update My Account Details</a></p>
+    <p class = "lead text-left"> <a href = "{% url 'user_delete' user.pk %}">Delete My Account</a></p>
+    <p class = "lead text-left"> <a href= "{% url 'password_reset' %}">Change My Password</a></p>
+
+</div>
+{% if user.score == 0 %}
+    <div class="alert alert-primary alert-dismissible fade fade show" role = "alert">
+        <p class="lead"> Hey there {{ user.username }}, you haven't earned any points yet 😞. Play the <a href = "{% url 'cipher-game' %}">Cipher Games</a> to earn points!😎 </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+{% if not user.favorite_encryption %}
+<div class="alert alert-info alert-dismissible fade fade show" role = "alert">
+    <p class="lead"> Hmm, no favorite encryption? 🤔 Do you know that you can select your favorite encryption <a href = "{% url 'user_update' user.pk %}">here</a> 🤗 </p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+{% endif %}
+{% endblock %}
+{% block AddFooter %}
 {% endblock %}

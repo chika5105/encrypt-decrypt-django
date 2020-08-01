@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from encrypt_decrypt_app.vigenere_cipher import VigenereCipher
+from encrypt_decrypt_app.morse_code import MorseCode
+from encrypt_decrypt_app.nato_code import NatoCode
+cipher_v = VigenereCipher()
+cipher_m = MorseCode()
+cipher_n = NatoCode()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'encrypt_decrypt.urls'
@@ -130,8 +137,23 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 AUTH_USER_MODEL = 'encrypt_decrypt_app.User' 
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
 )
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'chika.cipher@gmail.com'
+EMAIL_HOST_PASSWORD = cipher_v.decrypt(cipher_n.decrypt(cipher_m.decrypt('..- -. .. ..-. --- .-. --  .- .-.. ..-. .-  --- ... -.-. .- .-.  --- ... -.-. .- .-.  --. --- .-.. ..-.  .-- .... .. ... -.- . -.--  ...- .. -.-. - --- .-.  ... .. . .-. .-. .-  ..- -. .. ..-. --- .-. --  -.- .. .-.. ---  .--. .- .--. .-  . -.-. .... ---  -.-- .- -. -.- . .  ..- -. .. ..-. --- .-. --  .. -. -.. .. .-  ..- -. .. ..-. --- .-. --  .-.. .. -- .-  ... .. . .-. .-. .-  ')), 'kbhhdlnwxsypzxrktx')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+    
+}

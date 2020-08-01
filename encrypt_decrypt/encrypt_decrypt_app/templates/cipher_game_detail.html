@@ -1,0 +1,57 @@
+{% extends 'base_generic.html' %}
+{% block nav_guess %}
+    class = "nav-item dropdown active"
+{% endblock %}
+
+{% block content %}
+
+<div class = "form-group" style = "padding-top: 65px;">
+    <form action = "" method = "GET">
+        {% csrf_token %}
+        <table class = "form-group">
+            {{ form.as_table }} 
+        </table>
+        <input type= "submit" class = "btn btn-primary" value = "Submit">
+    </form>
+    {% if message %}
+    {% if alert == 'success' %}
+    <div class="alert alert-success alert-dismissible fade fade show" role = "alert">
+        <p> {{ message }}🎊 </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    {% elif alert == 'ans' %}
+    <div class="alert alert-primary alert-dismissible fade fade show" role = "alert">
+        <p> {{ message }}🙃 </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    {% elif alert == 'wrong' %}
+    <div class="alert alert-danger alert-dismissible fade fade show" role = "alert">
+        <p> {{ message }}😖 </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% if rank_update %}
+    <div class="alert alert-info alert-dismissible fade fade show" role = "alert">
+        <p> {{ rank_update  }}🥳🎊🎉 </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    {% endif %}
+
+</div>
+<div>
+    <a href= "{% url 'cipher-game' %}">Go back to Question List</a>
+</div>
+
+{% endblock %}
+{% block AddFooter %}
+
+{% endblock %}

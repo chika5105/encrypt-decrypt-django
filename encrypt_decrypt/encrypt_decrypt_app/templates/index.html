@@ -3,6 +3,9 @@
 {% block nav_home %}
     class = "nav-item active"
 {% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
 {% block content %}
     <!-- Header - set the background image for the header in the line below -->
     <header class="py-5 bg-image-full" style="background-color: #282c34">
@@ -10,10 +13,18 @@
 
     
     <img id = 'homepage_logo' class = "img-fluid d-block mx-auto" src = "{% static 'images/encryption_asym.png' %} "alt=""/>
-    <p class="lead"><a href = "{% url 'ciphers' %}">Launch Encryption!</a></p>
-    <p class = "lead"><a href="{% url 'about' %}">See detailed descriptions of the encryption techniques</a></p>
+    <p class = "lead"><a href="{% url 'cipher-game' %}">Play Cipher Game!</a></p>
+    <p class="lead"><a href = "{% url 'ciphers' %}">Check out the Encryption Engine!</a></p>
+    {% if num_visits == 5 %}
+    <div class="alert alert-primary alert-dismissible fade fade show" role = "alert">
+        <p> Hey there! I hope you're enjoying yourself. Can you spare a little time to drop a comment <a href="{% url 'contact-me' %}">here</a></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    {% endif %}
 {% endblock %}
- 
+
 {% block footer %}
     {{ block.super }}
       <p class="m-0 text-center text-white" style="font-size:small"> You have visited this page {%if num_visits == 1 %} once {% else %} {{num_visits}} times {%endif%}. </p>

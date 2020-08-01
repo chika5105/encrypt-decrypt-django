@@ -30,10 +30,10 @@ class MorseCodeEncryptTests(unittest.TestCase):
 
 class MorseCodeDecryptTests(unittest.TestCase):
     def test_empty_string(self):
-        self.assertMultiLineEqual(test.decrypt(''), '')
+        self.assertMultiLineEqual(test.decrypt(''), ' ')
 
     def test_string_with_only_spaces(self):
-        self.assertMultiLineEqual(test.decrypt('     '), '    ')
+        self.assertMultiLineEqual(test.decrypt('  '), '   ')
 
     def test_string_lower_case(self):
         self.assertMultiLineEqual(test.decrypt('.- -... -.-. '), 'abc ')
@@ -41,7 +41,7 @@ class MorseCodeDecryptTests(unittest.TestCase):
     def test_string_upper_case(self):
         self.assertMultiLineEqual(
             test.decrypt('.- -... -.-. '),
-            'abc')
+            'abc ')
 
     def test_multi_word_lower(self):
         self.assertMultiLineEqual(test.decrypt('.- -... -.-.  .-- ...- ..- '), 'abc wvu ')

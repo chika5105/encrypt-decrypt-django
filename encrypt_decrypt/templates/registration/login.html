@@ -1,38 +1,220 @@
-{% extends "base_generic.html" %}
+{% load static %}
 
-{% block content %}
-
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chika's Cipher</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+	{% if form.errors %}
+	<div class="alert alert-danger alert-dismissible fade fade show" role = "alert">
+        <p>Your username and password didn't match. Please try again.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    
   {% endif %}
-  
   {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
+	{% if user.is_authenticated %}
+	<div class="alert alert-danger alert-dismissible fade fade show" role = "alert">
+        <p>Your account doesn't have access to this page. To proceed,
+			please login with an account that has access.</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+      
+	{% else %}
+		<div class="alert alert-danger alert-dismissible fade fade show" role = "alert">
+			<p>Please login to see this page.</p>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
     {% endif %}
   {% endif %}
-  
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table class = "form-group">
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="Login" class = "btn btn-success" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-  
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-  <p>Don't have an account yet?Sign up <a href="{% url 'signup' %}">here</a></p>
-  
-{% endblock %}
+  <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+      <div class="card login-card">
+        <div class="row no-gutters">
+          <div class="col-md-5">
+            <img src="{% static 'images/logo_login.png' %}" alt="login" class="login-card-img">
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <div class="brand-wrapper">
+                <img src="{% static 'images/nav_bar_logo.png' %}" alt="logo" class="logo">
+              </div>
+              <p class="login-card-description">Sign into your account</p>
+              <form method="post" action="{% url 'login' %}" class="login100-form validate-form">
+				{% csrf_token %}
+                  <div class="form-group">
+                    <label for="Username" class="sr-only">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Username" {{ form.username }}
+                  </div>
+                  <div class="form-group mb-4">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" {{ form.password }}
+                  </div>
+				  <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Login">
+				  <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+                <a href= "{% url 'password_reset' %}" class="forgot-password-link">Forgot password?</a>
+                <p class="login-card-footer-text">Don't have an account? <a href="{% url 'signup' %}" class="text-reset">Signup here</a></p>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="card login-card">
+        <img src="assets/images/login.jpg" alt="login" class="login-card-img">
+        <div class="card-body">
+          <h2 class="login-card-title">Login</h2>
+          <p class="login-card-description">Sign in to your account to continue.</p>
+          <form action="#!">
+            <div class="form-group">
+              <label for="email" class="sr-only">Email</label>
+              <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="password" class="sr-only">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-prompt-wrapper">
+              <div class="custom-control custom-checkbox login-card-check-box">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Remember me</label>
+              </div>              
+              <a href="#!" class="text-reset">Forgot password?</a>
+            </div>
+            <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="Login">
+          </form>
+          <p class="login-card-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
+        </div>
+      </div> -->
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Chika's Cipher</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.cs' %}s">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+	
+		<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/main1.css' %}">
+	
+	</head>
+	<body>
+	
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="image-holder">
+					<img src="{% static 'images/encryption_asym.png' %}" alt="">
+				</div>
+				<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+					<form method="post" action="{% url 'login' %}" class="login100-form validate-form">
+			   {% csrf_token %}
+						<span class="login100-form-title p-b-49">
+							Login
+						</span>
+	
+						<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is required">
+							<span class="label-input100">Username</span>
+							<input class="input100" type="text" placeholder="Enter your Username" {{ form.username }}
+							<span class="focus-input100" data-symbol="&#xf206;"></span>
+						</div>
+	
+						<div class="wrap-input100 validate-input" data-validate="Password is required">
+							<span class="label-input100">Password</span>
+							<input class="input100" type="password" placeholder="Enter your password" {{ form.password }}
+							<span class="focus-input100" data-symbol="&#xf190;"></span>
+						</div>
+						
+						<div class="text-right p-t-8 p-b-31">
+							<a href="{% url 'password_reset' %}">
+								Forgot password?
+							</a>
+						</div>
+						
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+								<button class="login100-form-btn" type = "submit" value = "Login">
+									Login
+				  </button>
+				  <input type="hidden" name="next" value="{{ next }}" />
+							</div>
+						</div>
+	
+						<div class="flex-col-c p-t-155">
+							<span class="txt1 p-b-17">
+								Don't have an account?
+							</span>
+	
+							<a href="{% url 'signup' %}" class="txt2">
+								Sign Up here
+							</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	
+		<div id="dropDownSelect1"></div>
+		
+	
+		<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	
+		<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+	
+		<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+		<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	
+		<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+	
+		<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+		<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+	
+		<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+	
+		<script src="{% static 'js/main.js' %}"></script>
+	
+	</body>
+	</html> -->
+ 

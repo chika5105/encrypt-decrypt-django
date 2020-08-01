@@ -1,0 +1,80 @@
+{% extends 'base_generic.html' %}
+{% block nav_guess %}
+    class = "nav-item dropdown active"
+{% endblock %}
+{% block content %}
+
+{% if  cipher_game_list %}
+<div class = "form-group" style = "padding-top: 50px;">
+    <div class="alert alert-success" role = "alert">
+        <h1>Easy</h1>
+            <ul>
+                {% for question in cipher_game_list %}
+                {% if question.difficulty == 'Easy' %}
+               
+                    <li>
+                        <a href=  " {{ question.get_absolute_url }} ">{{ question.name }}</a>
+                    </li>
+                
+                {% endif %} 
+                {% endfor %}
+
+    </div>
+<div class = "form-group">
+    <div class="alert alert-primary" role = "alert">
+        <h1>Medium</h1>
+            <ul>
+                {% for question in cipher_game_list %}
+                {% if question.difficulty == 'Medium' %}
+                   
+                    <li>
+                        <a href=  " {{ question.get_absolute_url }} ">{{ question.name }}</a>
+                    </li>
+                    
+                {% endif %} 
+                {% endfor %}
+    
+    </div>
+    <div class = "form-group">
+        <div class="alert alert-warning" role = "alert">
+            <h1>Hard</h1>
+                <ul>
+                    {% for question in cipher_game_list %}
+                    {% if question.difficulty == 'Hard' %}
+                           
+                        <li>
+                            <a href=  " {{ question.get_absolute_url }} ">{{ question.name }}</a>
+                        </li>
+                            
+                    {% endif %} 
+                    {% endfor %}
+            
+        </div>
+    <div class = "form-group">
+        <div class="alert alert-danger" role = "alert">
+            <h1>Impossible</h1>
+                <ul>
+                    {% for question in cipher_game_list %}
+                    {% if question.difficulty == 'Impossible' %}
+                               
+                        <li>
+                            <a href=  " {{ question.get_absolute_url }} ">{{ question.name }}</a>
+                        </li>
+                                
+                    {% endif %} 
+                    {% endfor %}
+                
+        </div>
+{% else %}
+        <div class="alert alert-warning" role = "alert">
+            <p> There are no questions available for now. Please check back later or file a bug report in the contact form <a href="{% url 'contact-me' %}">here</a></p>
+        </ul>
+            
+        </div>
+           
+{% endif %}
+</div>
+{% endblock %}
+{% block AddFooter %}
+
+{% endblock %}

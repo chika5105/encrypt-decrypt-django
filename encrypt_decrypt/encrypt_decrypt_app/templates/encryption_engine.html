@@ -1,0 +1,36 @@
+{% extends 'base_generic.html' %}
+
+{% block nav_encrypt %}
+    class = "nav-item active"
+{% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
+{% block content %}
+
+    <div class = "form-group" style = "padding-top: 50px;">
+        <form class = "needs-validation" action = "{% url 'ciphers' %}" method = "GET">
+            <div class= "form-group">
+                {% csrf_token %}
+                <table class = "form-group">
+                    {{ form.as_table }} 
+                </table>
+                <input type= "submit" class = "btn btn-primary" value = "Submit">
+            </div>
+        </form>
+    </div>
+    {% if num_visits_encrypt == 5 %}
+    <div class="alert alert-primary alert-dismissible fade fade show" role = "alert">
+        <p> Hey there! I see you're enjoying yourself.You can choose your favorite encryption <a href="{% url 'user_update' user.pk %}">here</a></p>
+        <p> You can also leave your reviews <a href="{% url 'contact-me' %}">here</a></p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <p class="m-0 text-center text-white" style="font-size:small"> You have visited this page {%if num_visits_encrypt == 1 %} once {% else %} {{num_visits_encrypt}} times {%endif%}. </p>
+{% endblock %}

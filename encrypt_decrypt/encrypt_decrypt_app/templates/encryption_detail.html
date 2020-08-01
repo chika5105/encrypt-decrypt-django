@@ -2,7 +2,65 @@
 {% block nav_about %}
     class = "nav-item active"
 {% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
 {% block content %}
-    <h1>Title: {{ encryption_detail.encryption_technique }}</h1>
-    <p>Description: {{ encryption_detail.description }}</p>
+{% load static %}
+<div  style = "padding-top: 70px;">
+    <h3>{{ encryption_detail.encryption_technique }}</h1>
+    <p class = "lead  text-left">{{ encryption_detail.description }}</p>
+{% if encryption_detail.encryption_technique == 'Caesar Cipher' %}
+<p class = "lead text-left"> Below is an image of Caesar Cipher with a key of 4</p>
+<br>
+
+<img  class = "img-fluid d-block mx-auto" src = "{% static 'images/caesar_cipher.png' %} "alt="Caesar Cipher with shift key=4" title = "Caesar Cipher with a shift key of 4"/>
+<div class="alert alert-danger" role = "alert">
+    <p class = "lead text-left"> Challenge Question: There are types of keys which, when used, return the same message even after encryption! Can you list some of the keys and figure out why they behave so strangely? If you have the answer💡, send me a message in the <a href = "{% url 'contact-me'%}">contact form</a>.</p>
+</div>
+
+{% elif encryption_detail.encryption_technique == 'Reverse Cipher' %}
+<p class = "lead text-left"> Below is an image of Reverse Cipher</p>
+<img  class = "img-fluid d-block mx-auto" src = "{% static 'images/reverse_cipher.png' %} "alt="Reverse Cipher" title = "Reverse Cipher"/>
+<div class="alert alert-danger" role = "alert">
+    <p class = "lead text-left"> Challenge Question: Certain words are resistant to Reverse Cipher. Can you name a few of these words? If you have the answer💡, send me a message in the <a href = "{% url 'contact-me'%}">contact form</a>.</p>
+</div>
+
+{% elif encryption_detail.encryption_technique == 'NATO Code' %}
+<p class = "lead text-left"> The image below shows the words and the characters they are assigned.
+
+</p>
+<img  class = "img-fluid d-block mx-auto" src = "{% static 'images/nato:morse_code.png' %} "alt="NATO and Morse Code table" title = "NATO and Morse Code"/>
+<div class="alert alert-danger" role = "alert">
+    <p class = "lead text-left"> Challenge Question: How does the Encryption Engine differentiate between characters and words in the ciphertext? For example, the Engine knows that “hotel echo yankee  tango hotel echo romeo echo “ means “Hey there” and not “Heythere”.  If you have the answer💡, send me a message in the <a href = "{% url 'contact-me'%}">contact form</a>.</p>
+</div>
+{% elif encryption_detail.encryption_technique == 'Morse Code' %}
+<p class = "lead text-left"> The image below shows the characters and the dots and dashes they are assigned.
+</p>
+<img  class = "img-fluid d-block mx-auto" src = "{% static 'images/nato:morse_code.png' %} "alt="NATO and Morse Code table" title = "NATO and Morse Code"/>
+<div class="alert alert-danger" role = "alert">
+    <p class = "lead text-left"> Challenge Question: Morse Code was designed so that the most frequently occurring letter in the alphabet has the smallest representation. Can you guess the letter? And why do you think it was designed this way?  If you have the answer💡, send me a message in the <a href = "{% url 'contact-me'%}">contact form</a>.</p>
+</div>
+{% elif encryption_detail.encryption_technique == 'Atbash Cipher' %}
+<p class = "lead text-left"> Atbash Cipher is shown in the image below.
+</p>
+<img  class = "img-fluid d-block mx-auto" src = "{% static 'images/atbash_cipher.png' %} "alt="Atbash Cipher Image" title = "Atbash Cipher"/>
+<div class="alert alert-danger" role = "alert">
+    <p class = "lead text-left"> Challenge Question: Atbash Cipher has a unique property that other ciphers in the Encryption Engine do not have. Do you know what this is? If you have the answer💡, send me a message in the <a href = "{% url 'contact-me'%}">contact form</a>.</p>
+</div>
+{% elif encryption_detail.encryption_technique == 'Vigenere Cipher' %}
+<p class = "lead text-left"> Vigenere Cipher is shown in the image below.
+</p>
+<img  class = "img-fluid d-block mx-auto" src = "{% static 'images/vigenere_cipher.png' %} "alt="Vigenere Cipher Image" title = "Vigenere Cipher"/>
+<div class="alert alert-danger" role = "alert">
+    <p class = "lead text-left"> Challenge Question: A particular type of key makes Vigenere Cipher completely useless. Can you find the property of such keys?  Do you know what this is? If you have the answer💡, send me a message in the <a href = "{% url 'contact-me'%}">contact form</a>.</p>
+</div>
+{% endif %}
+    <div>
+        <a class = "lead" href= "{% url 'about' %}">Go back to Encryption List</a>
+    </div>
+</div>
+
+{% endblock %}
+{% block AddFooter %}
 {% endblock %}

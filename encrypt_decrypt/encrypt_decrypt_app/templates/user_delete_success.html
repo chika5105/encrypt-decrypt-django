@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block nav_user %}
+    class = "nav-item active"
+{% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
+{% block content %}
+<div class="alert alert-success" role = "alert" style= "padding-top: 100px;">
+    <p>You have successful deleted your account! Go to <a href="{% url 'index'%}">Home</a> or create a new account <a href="{% url 'signup'%}">here</a></p>
+</div>
+
+{% endblock %}

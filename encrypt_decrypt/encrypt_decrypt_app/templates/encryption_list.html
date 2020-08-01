@@ -1,0 +1,68 @@
+{% extends 'base_generic.html' %}
+{% block nav_about %}
+    class = "nav-item active"
+{% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
+{% block content %}
+{% load static %}
+
+
+
+<div  style = "padding-top: 70px;">
+    <p class="lead text-left" >
+        <h4>
+            Developer 
+        </h4>
+        <p class = "lead text-left">
+            Chika Jinanwa- Freshman at Minerva Schools at KGI(at the time this website was built)
+            <img  class = "img-fluid d-block mx-auto" src = "{% static 'images/profile_pic.jpg' %} "alt="Chika Smiling" title = "Chika Jinanwa"/>
+        </p>
+        
+    <h4>
+        Technologies Used
+    </h4>
+    <p class = "lead text-left">
+        This website was built with Django for the backend, a PostgreSQL database, a Bootstrap/HTML5/CSS frontend, and Memcache for caching. <a href= "https://github.com/Chika-Jinanwa/encrypt-decrypt-django.git">The source code is available here</a>, and I am open to code contributions to improve the website. I am also open to comments about my coding practice with suggestions to improve the codebase and my coding style.  Shoot me an <a href="mailto:chikajinanwa@outlook.com">email</a> if you’ll love to contribute a feature or code or fill out the <a href="{% url 'contact-me' %}">contact form  </a>with the subject “Code Contribution.” If you wish to comment on my coding practice, use the subject “Coding Practice Suggestions.” If you notice any bugs, please fill out the <a href="{% url 'contact-me' %}">contact form  </a> with the subject “Bug Detected.” Uploading images of the bug or error message in the form will help in easily identifying and fixing the issue.
+    </p>
+    
+    <h4>
+        Website Features
+    </h4>
+    <p class = "lead text-left">
+        The website features the <a href = "{% url 'ciphers' %}">Encryption Engine</a>, which currently supports the encryption techniques listed <a href="#Encryption_List">below</a>. Click on the names of the encryptions to see detailed descriptions of the schemes and try to answer the challenge questions! The engine is case insensitive and produces all results in lowercase. If you don't specify a correct key, the engine will use the built-in default keys and will display these keys after it processes your request. If you decrypt a message and you're not getting what you want, check the key you provided and be sure it is accurate.
+    The Engine is also a handy tool for players who battle to decrypt the <a href = "{% url 'cipher-game' %}">Cipher Games</a> .  The Cipher Games is a list of encrypted messages which the players have to decode to earn points and get ranked on the <a href="{% url 'leaderboard' %}">leaderboard</a>. Only the top 10 players are displayed on the board. Players progress from “Rookie Analyst” to the coveted title of “Cipher Lord” depending on the number of points accrued. See <a href = "{% url 'instructions' %}">How to Play </a> to get more information about the Cipher Games, rankings, scoring, and titles. 
+{% if user.is_authenticated %}
+    Users can also update their information anytime <a href = "{% url 'user_update' user.pk %}">here</a> and change their passwords <a href= "{% url 'password_reset' %}">here</a>.
+{% else %}
+        You can create an account <a href= "{% url 'signup' %}">here</a> or login <a href="{% url 'login'%}?next={{request.path}}">here</a> if you already have an account.
+{% endif %}
+     I hope you like the website and good luck with the Cipher Games!
+    </p>
+    <p class = "lead text-left">These are the encryption techniques that this website currently supports. Use the  <a href= "{% url 'ciphers' %}">Encryption Engine</a> to see them in action </p>
+    <h4 id="Encryption_List">Encryption List</h4>
+        {% if  encryption_list %}
+            <ul>
+                {% for encryption in encryption_list %}
+                    <li>
+                        <a class = "lead" href= "{{ encryption.get_absolute_url }}">{{ encryption.encryption_technique }}</a>
+                    </li>
+                {% endfor %}
+                
+        {% else %}
+        <div class="alert alert-warning" role = "alert">
+            <p> There are no descriptions available for the encryptions. Please check back later or file a bug report in the contact form <a href="{% url 'contact-me' %}">here</a></p>
+            </ul>
+        </ul>
+            
+        </div>
+            
+        {% endif %}
+</div>
+</div>
+
+    
+{% endblock %}
+{% block AddFooter %}
+{% endblock %}

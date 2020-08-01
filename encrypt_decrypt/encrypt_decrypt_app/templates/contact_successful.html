@@ -1,6 +1,11 @@
 {% extends 'base_generic.html' %}
-
+{% block nav_contact %}
+    class = "nav-item active"
+{% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
 {% block content %}
-    <p>Message has been sent successfully!Go to <a href="{% url 'index' %}">Home </a></p>
+    <div class="alert alert-success" role = "alert" style = "padding-top: 100px;" >Message has been sent successfully! Go to <a href="{% url 'index' %}">Home </a></div>
     
 {% endblock %}

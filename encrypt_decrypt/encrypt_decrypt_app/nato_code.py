@@ -26,7 +26,18 @@ class NatoCode():
     'w': 'whiskey',
     'x': 'xray',
     'y': 'yankee',
-    'z': 'zulu'
+    'z': 'zulu',
+    '1': 'one',
+    '2': 'two',
+    '3': 'three',
+    '4': 'four',
+    '5': 'five',
+    '6': 'six',
+    '7': 'seven',
+    '8': 'eight',
+    '9': 'nine',
+    '0': 'zero'
+
     }
         self.__dic_cipher = {self.__dic_plain[i]:i for i in self.__dic_plain}
     def encrypt(self, string):

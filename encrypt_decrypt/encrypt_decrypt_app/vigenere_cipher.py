@@ -3,7 +3,7 @@ class VigenereCipher():
         self.__dic = {chr(x): x-97 for x in range(97, 123)}
     def encrypt(self, string, key=None):
         if key is None:
-            key = ''.join(['z' if string else elem for elem in string])
+            key = ''.join(['z' for elem in string])
         else:
           #TODO validate that key len == message len in forms.py
             key = key.lower()
@@ -36,5 +36,4 @@ class VigenereCipher():
                 else:
                     result+=[string[i]]
             return ''.join(result).lower()
-
 

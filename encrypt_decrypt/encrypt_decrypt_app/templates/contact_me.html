@@ -1,14 +1,116 @@
 {% extends 'base_generic.html' %}
+{% load static %}
+
 {% block nav_contact %}
     class = "nav-item active"
 {% endblock %}
+{% block nav_guess %}
+    class = "nav-item dropdown"
+{% endblock %}
+
 {% block content %}
-    <h1>CONTACT ME</h1>
-    <form action = "{% url 'contact-me' %}" method = "post">
-        {% csrf_token %}
-        <table class= "form-group">
-            {{ form.as_table }}
-        </table>
-        <input class = "btn btn-primary" type="submit" value = "Submit">
-    </form>
+    
+    
+    <!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'ContactForm/images/icons/favicon.ico' %}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+     <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/vendor/animsition/css/animsition.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/vendor/daterangepicker/daterangepicker.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ContactForm/css/main.css' %}">
+    <!--===============================================================================================-->
+    
+	<div class="container-contact100">
+
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form" action = "{% url 'contact-me' %}" method = "POST" enctype="multipart/form-data">
+                {% csrf_token %}
+				<span class="contact100-form-title">
+					Send Me A Message
+				</span>
+
+				<div class="wrap-input100 validate-input" data-validate="Please enter your name">
+					<input class="input100" type="text" name="name" placeholder="Full Name" {{ form.name }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Please enter your email: e@a.x">
+					<input class="input100" type="text" name="email" placeholder="E-mail" {{ form.email }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Please enter the subject of your message">
+					<input class="input100" type="text" placeholder="Subject" {{ form.subject }}
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Please enter your message">
+                    <textarea class="input100" name="message" placeholder="Your Message" {{ form.message }} 
+                    </textarea>
+					<span class="focus-input100"></span>
+                </div>
+               
+                {{ form.image }}
+                {{ form.send_email.label_tag }}
+                {{ form.send_email}}
+
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn" type = "submit" >
+						<span>
+							<i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+							Send
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+    
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'ContactForm/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'ContactForm/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'ContactForm/js/main.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+{% endblock %}
+
+{% block AddFooter %}
+
 {% endblock %}
