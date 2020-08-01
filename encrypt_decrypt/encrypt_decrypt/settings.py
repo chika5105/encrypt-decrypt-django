@@ -14,6 +14,8 @@ import os
 from encrypt_decrypt_app.vigenere_cipher import VigenereCipher
 from encrypt_decrypt_app.morse_code import MorseCode
 from encrypt_decrypt_app.nato_code import NatoCode
+import dj_database_url
+import django_heroku
 cipher_v = VigenereCipher()
 cipher_m = MorseCode()
 cipher_n = NatoCode()
@@ -26,10 +28,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xn75-qdll^3!p=lslyznu#@n&njpg7$#9+3gvueatx8z*_#td%'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'xn75-qdll^3!p=lslyznu#@n&njpg7$#9+3gvueatx8z*_#td%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG', '')!= 'False'
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -135,6 +139,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
@@ -150,10 +157,54 @@ EMAIL_HOST_USER = 'chika.cipher@gmail.com'
 EMAIL_HOST_PASSWORD = cipher_v.decrypt(cipher_n.decrypt(cipher_m.decrypt('..- -. .. ..-. --- .-. --  .- .-.. ..-. .-  --- ... -.-. .- .-.  --- ... -.-. .- .-.  --. --- .-.. ..-.  .-- .... .. ... -.- . -.--  ...- .. -.-. - --- .-.  ... .. . .-. .-. .-  ..- -. .. ..-. --- .-. --  -.- .. .-.. ---  .--. .- .--. .-  . -.-. .... ---  -.-- .- -. -.- . .  ..- -. .. ..-. --- .-. --  .. -. -.. .. .-  ..- -. .. ..-. --- .-. --  .-.. .. -- .-  ... .. . .-. .-. .-  ')), 'kbhhdlnwxsypzxrktx')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+
+# Heroku: Update database configuration from $DATABASE_URL.
+django_heroku.settings(locals())
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+def get_cache():
+  import os
+  try:
+    servers = os.environ['MEMCACHIER_SERVERS']
+    username = os.environ['MEMCACHIER_USERNAME']
+    password = os.environ['MEMCACHIER_PASSWORD']
+    return {
+      'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        # TIMEOUT is not the connection timeout! It's the default expiration
+        # timeout that should be applied to keys! Setting it to `None`
+        # disables expiration.
+        'TIMEOUT': None,
+        'LOCATION': servers,
+        'OPTIONS': {
+          'binary': True,
+          'username': username,
+          'password': password,
+          'behaviors': {
+            # Enable faster IO
+            'no_block': True,
+            'tcp_nodelay': True,
+            # Keep connection alive
+            'tcp_keepalive': True,
+            # Timeout settings
+            'connect_timeout': 2000, # ms
+            'send_timeout': 750 * 1000, # us
+            'receive_timeout': 750 * 1000, # us
+            '_poll_timeout': 2000, # ms
+            # Better failover
+            'ketama': True,
+            'remove_failed': 1,
+            'retry_timeout': 2,
+            'dead_timeout': 30,
+          }
+        }
+      }
     }
-    
-}
+  except:
+    return {
+      'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+      }
+    }
+
+CACHES = get_cache()
